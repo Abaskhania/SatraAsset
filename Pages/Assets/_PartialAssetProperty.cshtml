@@ -1,0 +1,88 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model  IList<SatraAsset.Model.AssetProperty>
+@using SatraAsset.Model
+<div class="row">
+@foreach (var property in Model)
+{
+    <div class="col-md-6 mb-3">
+
+        <label class="form-label">
+            @property.Name
+
+            @if (property.IsRequired)
+            {
+                <span class="text-danger">*</span>
+            }
+        </label>
+
+        @switch (property.DataType)
+        {
+            case PropertyDataType.String:
+
+                <input type="text"
+                       name="PropertyValues[@property.Id]"
+                       class="form-control"
+                       @(property.IsRequired ? "required" : "") />
+
+                break;
+
+            case PropertyDataType.Number:
+
+                <input type="number"
+                       name="PropertyValues[@property.Id]"
+                       class="form-control"
+                       @(property.IsRequired ? "required" : "") />
+
+                break;
+
+            case PropertyDataType.Date:
+
+                <input type="text"
+                       name="PropertyValues[@property.Id]"  autocomplete="off"
+                       class="form-control input_datepicker "
+                       @(property.IsRequired ? "required" : "") />
+
+                break;
+
+            case PropertyDataType.Boolean:
+
+                <input type="hidden"
+                       name="PropertyValues[@property.Id]"
+                       value="false" />
+
+                <input type="checkbox"
+                       name="PropertyValues[@property.Id]"
+                       value="true"
+                       class="form-check-input" />
+
+                break;
+
+            case PropertyDataType.Select:
+
+                <select name="PropertyValues[@property.Id]"
+                        class="form-select"
+                        @(property.IsRequired ? "required" : "")>
+
+                    <option value="">
+                        انتخاب کنید
+                    </option>
+
+                    @foreach (var option in property.GetOptions())
+                    {
+                        <option value="@option">
+                            @option
+                        </option>
+                    }
+
+                </select>
+
+                break;
+        }
+
+    </div>
+}
+</div>

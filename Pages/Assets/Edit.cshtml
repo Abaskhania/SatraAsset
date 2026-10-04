@@ -1,0 +1,336 @@
+﻿@page
+@model SatraAsset.Pages.Assets.EditModel
+
+
+@using SatraAsset.Model
+@{
+    ViewData["Title"] = "ویرایش مال";
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">ویرایش مال</h5>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Asset.Id" />
+                <div class="row">
+
+                    <!-- نام مال -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Name" class="form-label"></label>
+                        <input asp-for="Asset.Name"
+                               class="form-control"
+                               placeholder="نام مال را وارد کنید" />
+                        <span asp-validation-for="Asset.Name"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- کد اموال -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.AssetCode" class="form-label"></label>
+                        <input asp-for="Asset.AssetCode"
+                               class="form-control"
+                               placeholder="کد اموال" />
+                        <span asp-validation-for="Asset.AssetCode"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- دسته بندی -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Category" class="form-label"></label>
+                        @* <input asp-for="Asset.Category"
+                               class="form-control"
+                               placeholder="دسته‌بندی" /> *@
+                        <select asp-for="Asset.CategoryID" class="form-control"
+                                asp-items="@Model.AssetCategories">
+                            <option value="">-- انتخاب دسته بندی --</option>
+                        </select>
+                        <span asp-validation-for="Asset.CategoryID"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- محل استقرار -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Location" class="form-label"></label>
+                       @*  <input asp-for="Asset.Location"
+                               class="form-control"
+                               placeholder="محل استقرار" /> *@
+                        <select asp-for="Asset.LocationID" class="form-control"
+                                asp-items="@Model.AssetLocations">
+                            <option value="">-- انتخاب محل استقرار --</option>
+                        </select>
+                        <span asp-validation-for="Asset.LocationID"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- تولید کننده -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Manufacturer" class="form-label"></label>
+                        <input asp-for="Asset.Manufacturer"
+                               class="form-control"
+                               placeholder="تولیدکننده" />
+                    </div>
+
+                    <!-- مدل -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Model" class="form-label"></label>
+                        <input asp-for="Asset.Model"
+                               class="form-control"
+                               placeholder="مدل" />
+                    </div>
+
+                    <!-- شماره سریال -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.SerialNumber" class="form-label"></label>
+                        <input asp-for="Asset.SerialNumber"
+                               class="form-control"
+                               placeholder="شماره سریال" />
+                    </div>
+
+                    <!-- وضعیت -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Status" class="form-label"></label>
+
+                        <select asp-for="Asset.Status"
+                                asp-items="Html.GetEnumSelectList<AssetStatus>()"
+                                class="form-select">
+                        </select>
+
+                        <span asp-validation-for="Asset.Status"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- تاریخ خرید -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.PurchaseAt" class="form-label"></label>
+                        <input asp-for="Asset.PurchaseAt"
+                               type="text" autocomplete="off"
+                               class="input_datepicker form-control" />
+                        <span asp-validation-for="Asset.PurchaseAt"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- قیمت خرید -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.PurchasePrice" class="form-label"></label>
+                        <input asp-for="Asset.PurchasePrice"
+                               type="number"
+                               step="0.01"
+                               class="form-control"
+                               placeholder="قیمت خرید" />
+                        <span asp-validation-for="Asset.PurchasePrice"
+                              class="text-danger"></span>
+                    </div>
+
+                    <!-- گارانتی -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.WarrantyExpiryAt"
+                               class="form-label"></label>
+
+                        <input asp-for="Asset.WarrantyExpiryAt"
+                               type="text" autocomplete="off" 
+                               class="input_datepicker form-control" />
+                        <span asp-validation-for="Asset.WarrantyExpiryAt"
+                              class="text-danger"></span>
+                    </div>
+                    
+                     <div class="col-12 mb-3" id="propertycontainer">
+                        <div class="row">
+                        @foreach (var propertyValue in Model.Asset.AssetProperties)
+                        {
+                                    AssetProperty property
+                                            = propertyValue.AssetProperty;
+                                    <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    @property.Name
+
+                                    @if (property.IsRequired)
+                                    {
+                                        <span class="text-danger">*</span>
+                                    }
+                                </label>
+
+                                @switch (property.DataType)
+                                {
+                                    case PropertyDataType.String:
+
+                                        <input type="text"
+                                               name="PropertyValues[@property.Id]"
+                                               value="@propertyValue.Value"
+                                               class="form-control"
+                                               @(property.IsRequired ? "required" : "") />
+
+                                        break;
+
+                                    case PropertyDataType.Number:
+
+                                        <input type="number"
+                                               name="PropertyValues[@property.Id]"
+                                               value="@propertyValue.Value"
+                                               class="form-control"
+                                               @(property.IsRequired ? "required" : "") />
+
+                                        break;
+
+                                    case PropertyDataType.Date:
+
+                                        <input type="text"
+                                               name="PropertyValues[@property.Id]"
+                                               value="@Model.EnglishDigitsToPersian(propertyValue.Value)"
+                                               class="form-control input_datepicker "
+                                               @(property.IsRequired ? "required" : "") />
+
+                                        break;
+
+                                    case PropertyDataType.Boolean:
+
+                                        <input type="hidden"
+                                               name="PropertyValues[@property.Id]"
+                                               value="false" />
+
+                                        <input type="checkbox"
+                                               name="PropertyValues[@property.Id]"
+                                               value="@propertyValue.Value"
+                                               class="form-check-input" />
+
+                                        break;
+
+                                    case PropertyDataType.Select:
+
+                                        <select name="PropertyValues[@property.Id]"
+                                                class="form-select"
+                                                
+                                                @(property.IsRequired ? "required" : "")>
+
+                                            <option value="">
+                                                انتخاب کنید
+                                            </option>
+
+                                            @foreach (var option in property.GetOptions())
+                                            {
+                                                <option value="@option" selected="@(option == propertyValue.Value ? "selected" : null)">
+                                                    @option
+                                                </option>
+
+                                            }
+
+                                        </select>
+
+                                        break;
+                                }
+
+    </div>
+}
+</div>
+                    </div>
+                    <!-- توضیحات -->
+                    <div class="col-12 mb-3">
+                        <label asp-for="Asset.Description"
+                               class="form-label"></label>
+
+                        <textarea asp-for="Asset.Description"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="توضیحات"></textarea>
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex gap-2">
+                    <button type="submit"
+                            class="btn btn-primary">
+                        بروز رسانی
+                    </button>
+
+                    <a asp-page="./Index"
+                       class="btn btn-secondary">
+                        انصراف
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/persian-date.min.js"></script>
+    <script src="~/js/persian-datepicker.min.js"></script>
+    <script>
+       const firstCategoryID=@Model.Asset.CategoryID;
+       var firstPropertyHtml="";
+        $(document).ready(function() {
+
+            $(".input_datepicker").pDatepicker({
+                format: "YYYY/MM/DD",
+                autoClose: true,
+                initialValue: false
+            });
+            firstPropertyHtml=$("#propertycontainer").html();
+            
+        });
+
+        $("#Asset_CategoryID").change(async function(){
+            
+            debugger;
+            
+            const container = $("#propertycontainer");
+            const categoryId = this.value;
+            if (!categoryId) {
+
+                container.innerHTML = "";
+
+                return;
+            }
+            $("#propertycontainer").html(
+                "<div>در حال بارگذاری...</div>");
+            try {
+                //if(categoryId!=firstCategoryID)
+                {
+                    const response = await fetch(
+                        `/Assets/Create?handler=Properties&categoryId=${categoryId}`
+                    );
+                
+                    if (!response.ok) {
+                        throw new Error("خطا در دریافت اطلاعات");
+                    }
+
+                    const html = await response.text();
+                    //$(html).insertBefore("#propertycontainer");
+                    $("#propertycontainer").html( html);
+                }
+                // else
+                // {
+                //     $("#propertycontainer").html( firstPropertyHtml);
+                // }
+                $(".input_datepicker").pDatepicker({
+                format: "YYYY/MM/DD",
+                autoClose: true,
+                initialValue: false
+            });   
+            }
+            catch (error) {
+
+                console.error(error);
+
+                container.innerHTML =
+                    `<div class="text-danger">
+                        خطا در دریافت ویژگی‌های Asset
+                     </div>`;
+            }
+
+
+
+        });
+    </script>
+}

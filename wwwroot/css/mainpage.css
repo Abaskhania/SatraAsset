@@ -1,0 +1,114 @@
+﻿.page-logo {
+    width: 140px;
+    max-width: 45vw;
+    transition: transform .3s ease;
+}
+
+    .page-logo:hover {
+        transform: scale(1.05);
+    }
+
+.menu-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 120px;
+    padding: 24px;
+    color: #212529;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .07);
+    transition: all .3s ease;
+    overflow: hidden;
+}
+
+    .menu-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 5px;
+        background: linear-gradient(180deg, #0d6efd, #6610f2);
+        border-radius: 20px 0 0 20px;
+    }
+
+    .menu-card:hover {
+        color: #212529;
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(13, 110, 253, .15);
+        border-color: #d7e5ff;
+    }
+
+.menu-icon {
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 26px;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    border-radius: 16px;
+    box-shadow: 0 7px 18px rgba(13, 110, 253, .25);
+}
+
+.menu-card h5 {
+    margin: 0 0 6px;
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.menu-card p {
+    margin: 0;
+    color: #6c757d;
+    font-size: .9rem;
+}
+
+.arrow-icon {
+    margin-right: auto;
+    color: #adb5bd;
+    font-size: 18px;
+    transition: transform .3s ease, color .3s ease;
+}
+
+.menu-card:hover .arrow-icon {
+    color: #0d6efd;
+    transform: translateX(-5px);
+}
+
+/* موبایل */
+@media (max-width: 575.98px) {
+    .container {
+        padding-top: 30px !important;
+    }
+
+    .page-logo {
+        width: 110px;
+    }
+
+    .menu-card {
+        min-height: 100px;
+        padding: 18px;
+        gap: 14px;
+        border-radius: 16px;
+    }
+
+    .menu-icon {
+        flex-basis: 50px;
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+        border-radius: 13px;
+    }
+
+    .menu-card h5 {
+        font-size: 1rem;
+    }
+
+    .menu-card p {
+        font-size: .8rem;
+    }
+}

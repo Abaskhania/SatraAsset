@@ -1,0 +1,142 @@
+﻿@page
+@model SatraAsset.Pages.Properties.CreateModel
+@{
+}
+
+@using SatraAsset.Model
+@{
+    ViewData["Title"] = "ثبت مال جدید";
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">ثبت مال جدید</h5>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="row">
+
+
+                    <!-- دسته بندی -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AssetProperty.Category" class="form-label"></label>
+                        @* <input asp-for="Asset.Category"
+                               class="form-control"
+                               placeholder="دسته‌بندی" /> *@
+                        <select asp-for="AssetProperty.CategoryId" class="form-control"
+                                asp-items="@Model.AssetCategories">
+                            <option value="">-- انتخاب دسته بندی --</option>
+                        </select>
+                        <span asp-validation-for="AssetProperty.CategoryId"
+                              class="text-danger"></span>
+                    </div>
+                    <!-- نام خصوصیت -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AssetProperty.Name" class="form-label"></label>
+                        <input asp-for="AssetProperty.Name"
+                               class="form-control"
+                               placeholder="نام خصوصیت را وارد کنید" />
+                        <span asp-validation-for="AssetProperty.Name"
+                              class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AssetProperty.DataType" class="form-label"></label>
+
+                        <select asp-for="AssetProperty.DataType"
+                                asp-items="Html.GetEnumSelectList<PropertyDataType>()"
+                                class="form-select">
+                        </select>
+
+                        <span asp-validation-for="AssetProperty.DataType"
+                              class="text-danger"></span>
+                    </div>
+                    <!-- مرتب سازی -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AssetProperty.SortOrder" class="form-label"></label>
+                        <input asp-for="AssetProperty.SortOrder" type="number"
+                               class="form-control"
+                               placeholder="مرتب سازی" />
+                    </div>
+
+                    <!--گزینه ها -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AssetProperty.OptionsJson" class="form-label"></label>
+                        <input asp-for="AssetProperty.OptionsJson"
+                               class="form-control"
+                               placeholder="گزینه ها" />
+                    </div>
+                    <!-- اجباری -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AssetProperty.IsRequired" class="form-label"></label>
+                        <input type="checkbox" asp-for="AssetProperty.IsRequired"
+                               class="form-check-input"          />
+                        <span asp-validation-for="AssetProperty.IsRequired"
+                              class="text-danger"></span>
+                    </div>
+
+                    
+
+                   
+                    
+
+                    
+
+                    
+
+                    
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex gap-2">
+                    <button type="submit"
+                            class="btn btn-primary">
+                        ثبت خصوصیت
+                    </button>
+
+                    <a asp-page="./Index"
+                       class="btn btn-secondary">
+                        انصراف
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/persian-date.min.js"></script>
+    <script src="~/js/persian-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $(".input_datepicker").pDatepicker({
+                format: "YYYY/MM/DD",
+                autoClose: true,
+                initialValue: false
+            });           
+        });
+        
+
+
+
+
+
+
+    </script>
+
+
+    
+
+        
+
+}

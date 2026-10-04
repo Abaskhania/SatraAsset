@@ -1,0 +1,291 @@
+﻿@page
+@model SatraAsset.Pages.Assets.DetailsModel
+@{
+}
+
+@using SatraAsset.Model
+@{
+    ViewData["Title"] = "ثبت مال جدید";
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">جزئیات اموال</h5>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+
+                
+
+                <div class="row">
+                    <input type="hidden" asp-for="Asset.Id" />
+                    <!-- نام مال -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Name" class="form-label"></label>
+                        <input asp-for="Asset.Name" readonly
+                               class="form-control bg-light"
+                               placeholder="نام مال را وارد کنید" />
+                       
+                    </div>
+
+                    <!-- کد اموال -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.AssetCode" class="form-label"></label>
+                        <input asp-for="Asset.AssetCode" readonly
+                               class="form-control bg-light"
+                               placeholder="کد اموال" />
+                       
+                    </div>
+
+                    <!-- دسته بندی -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Category" class="form-label"></label>
+                         <input asp-for="Asset.Category.Name" readonly
+                               class="form-control bg-light"
+                               placeholder="دسته‌بندی" /> 
+                       @*  <select asp-for="Asset.CategoryID" class="form-control" 
+                                asp-items="@Model.AssetCategories">
+                            <option value="">-- انتخاب دسته بندی --</option>
+                        </select> *@
+                       
+                    </div>
+
+                    <!-- محل استقرار -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Location" class="form-label"></label>
+                        <input asp-for="Asset.Location.Name" readonly
+                               class="form-control bg-light"
+                               placeholder="محل استقرار" />
+                        @* <select asp-for="Asset.LocationID" class="form-control" 
+                                asp-items="@Model.AssetLocations">
+                            <option value="">-- انتخاب محل استقرار --</option>
+                        </select> *@
+                        
+                    </div>
+
+                    <!-- تولید کننده -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Manufacturer" class="form-label"></label>
+                        <input asp-for="Asset.Manufacturer" readonly 
+                               class="form-control bg-light"
+                               placeholder="تولیدکننده" />
+                    </div>
+
+                    <!-- مدل -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Model" class="form-label"></label>
+                        <input asp-for="Asset.Model"  readonly
+                               class="form-control bg-light"
+                               placeholder="مدل" />
+                    </div>
+
+                    <!-- شماره سریال -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.SerialNumber" class="form-label"></label>
+                        <input asp-for="Asset.SerialNumber"  readonly
+                               class="form-control bg-light"
+                               placeholder="شماره سریال" />
+                    </div>
+
+                    <!-- وضعیت -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.Status" class="form-label"></label>
+
+                        <select asp-for="Asset.Status" disabled
+                                 asp-items="Html.GetEnumSelectList<AssetStatus>()"
+                                class="form-select bg-light">
+                        </select>
+
+                        
+                    </div>
+
+                    <!-- تاریخ خرید -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.PurchaseAt" class="form-label"></label>
+                        <input asp-for="Asset.PurchaseAt" readonly
+                               type="text" autocomplete="off"
+                               class="input_datepicker form-control bg-light" />
+                       
+                    </div>
+
+                    <!-- قیمت خرید -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.PurchasePrice" class="form-label"></label>
+                        <input asp-for="Asset.PurchasePrice" readonly
+                               type="number"
+                               step="0.01"
+                               class="form-control bg-light"
+                               placeholder="قیمت خرید" />
+                        
+                    </div>
+
+                    <!-- گارانتی -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Asset.WarrantyExpiryAt"
+                               class="form-label"></label>
+
+                        <input asp-for="Asset.WarrantyExpiryAt" readonly
+                               type="text" autocomplete="off" 
+                               class="input_datepicker form-control bg-light" />
+                        
+                    </div>
+                    @foreach (var property in Model.Asset!.AssetProperties)
+                    {
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                @property.AssetProperty.Name
+                            </label>
+                            <input value="@(property.Value)" readonly
+                                   type="text" autocomplete="off"
+                                   class="form-control bg-light" />
+
+       
+                        </div>
+                    }
+                   
+                    <!-- توضیحات -->
+                    <div class="col-12 mb-3">
+                        <label asp-for="Asset.Description"
+                               class="form-label"></label>
+
+                        <textarea asp-for="Asset.Description" readonly
+                                  class="form-control bg-light"
+                                  rows="4"
+                                  placeholder="توضیحات"></textarea>
+                    </div>
+                    <!-- تحویل گیرنده -->
+       
+                    <div class="col-12 mb-3">
+                        
+                        
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div class="d-flex gap-2">
+                    شماره کارمندی یا کد ملی:
+                    <input asp-for="Pers_NCD"
+                               type="text" autocomplete="off" 
+                               class=" form-control" />
+                    <button type="submit"
+                            class="btn btn-primary">
+                        ثبت تحویل گیرنده
+                    </button>
+
+                    <a asp-page="./Index"
+                       class="btn btn-secondary">
+                        انصراف
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <br />
+                 <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">تاریخچه تحویل اموال</h5>
+        </div>
+                    <div class="row">
+                    <div class="col-12 mb-3">
+                        <h3></h3>                        
+                        <br />
+                        <table style="width:90%;margin:auto" class="table table-hover align-middle  ">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>کد ملی</th>
+                            <th> شماره کارمندی</th>
+                            <th>نام </th>
+                            <th>‌نام خانوادگی</th>
+                            <th>‌تاریخ تحویل </th>
+                            
+                            
+                        </tr>
+                    </thead>
+                     <tbody>
+                    @if (Model.Asset!.AssetPersonels.Any())
+                    {
+                        var row = 1;
+
+                        foreach (var Recipient in Model.Asset.AssetPersonels)
+                        {
+                            <tr>
+
+                                <td>
+                                    @row
+                                </td>
+
+                                <td>
+                                    <span class="fw-semibold">
+                                        @Recipient.Personel.NCD
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @Recipient.Personel.ClerkID
+                                </td>
+
+                                <td>
+                                    @Recipient.Personel.Name
+                                </td>
+
+                                <td>
+                                    @Recipient.Personel.Family
+                                </td>
+
+                                <td>
+                                    @Recipient.CreateAt
+                                </td>
+                            </tr>
+
+                            row++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6"
+                                class="text-center py-5">
+
+                                <div class="text-muted">
+
+                                    <i class="bi bi-inbox fs-1"></i>
+
+                                    <div class="mt-2">
+                                        موردی برای نمایش وجود ندارد.
+                                    </div>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>
+</div>
+<link href="~/css/persian-datepicker.min.css" rel="stylesheet" />
+@section Scripts {
+    
+    <script src="~/js/persian-date.min.js"></script>
+    <script src="~/js/persian-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            // $(".input_datepicker").pDatepicker({
+            //     format: "YYYY/MM/DD",
+            //     autoClose: true,
+            //     initialValue: false
+            // });           
+        });
+    </script>
+}
