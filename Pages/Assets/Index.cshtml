@@ -1,5 +1,4 @@
-﻿
-@page
+﻿@page
 @model SatraAsset.Pages.Assets.IndexModel
 @{
 }
@@ -123,180 +122,227 @@
 
                     <tbody>
 
-                    @if (Model.Assets.Any())
-                    {
-                        var row = 1;
+                        @if (Model.Assets.Any())
+                        {
+                            var row = 1;
 
-                        foreach (var asset in Model.Assets)
+                            foreach (var asset in Model.Assets)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @(row + ((Model.currentPage - 1) * Model.pageSize))
+                                    </td>
+
+                                    <td>
+                                        <span class="fw-semibold">
+                                            @asset.AssetCode
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @asset.Name
+                                    </td>
+
+                                    <td>
+                                        @asset.Category.Name
+                                    </td>
+
+                                    <td>
+                                        @asset.Location.Name
+                                    </td>
+
+                                    <td>
+                                        @asset.SerialNumber
+                                    </td>
+
+                                    <td>
+                                        @asset.PurchasePrice.ToString("N0")
+                                    </td>
+
+                                    <td>
+                                        @switch (asset.Status)
+                                        {
+                                            case AssetStatus.Active:
+                                                <span class="badge bg-success">
+                                                    فعال
+                                                </span>
+                                                break;
+
+                                            case AssetStatus.Inactive:
+                                                <span class="badge bg-secondary">
+                                                    غیرفعال
+                                                </span>
+                                                break;
+
+                                            case AssetStatus.UnderMaintenance:
+                                                <span class="badge bg-warning text-dark">
+                                                    در حال تعمیر
+                                                </span>
+                                                break;
+
+                                            case AssetStatus.Retired:
+                                                <span class="badge bg-dark">
+                                                    بازنشسته
+                                                </span>
+                                                break;
+
+                                            case AssetStatus.Lost:
+                                                <span class="badge bg-danger">
+                                                    مفقود شده
+                                                </span>
+                                                break;
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <div class="btn-group">
+
+                                            <a asp-page="./Details"
+                                               asp-route-id="@asset.Id"
+                                               class="btn btn-sm btn-outline-info"
+                                               title="جزئیات">
+                                                <i class="bi bi-eye"></i>
+
+                                            </a>
+
+                                            <a asp-page="./Edit"
+                                               asp-route-id="@asset.Id"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="ویرایش">
+                                                <i class="bi bi-pencil"></i>
+
+                                            </a>
+
+                                            <a asp-page="./Delete"
+                                               asp-route-id="@asset.Id"
+                                               class="btn btn-sm btn-outline-danger"
+                                               title="حذف">
+                                                <i class="bi bi-trash"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                row++;
+                            }
+                        }
+                        else
                         {
                             <tr>
+                                <td colspan="9"
+                                    class="text-center py-5">
 
-                                <td>
-                                    @(row+ ((Model.currentPage-1)*Model.pageSize))
-                                </td>
+                                    <div class="text-muted">
 
-                                <td>
-                                    <span class="fw-semibold">
-                                        @asset.AssetCode
-                                    </span>
-                                </td>
+                                        <i class="bi bi-inbox fs-1"></i>
 
-                                <td>
-                                    @asset.Name
-                                </td>
-
-                                <td>
-                                    @asset.Category.Name
-                                </td>
-
-                                <td>
-                                    @asset.Location.Name
-                                </td>
-
-                                <td>
-                                    @asset.SerialNumber
-                                </td>
-
-                                <td>
-                                    @asset.PurchasePrice.ToString("N0")
-                                </td>
-
-                                <td>
-                                    @switch (asset.Status)
-                                    {
-                                        case AssetStatus.Active:
-                                            <span class="badge bg-success">
-                                                فعال
-                                            </span>
-                                            break;
-
-                                        case AssetStatus.Inactive:
-                                            <span class="badge bg-secondary">
-                                                غیرفعال
-                                            </span>
-                                            break;
-
-                                        case AssetStatus.UnderMaintenance:
-                                            <span class="badge bg-warning text-dark">
-                                                در حال تعمیر
-                                            </span>
-                                            break;
-
-                                        case AssetStatus.Retired:
-                                            <span class="badge bg-dark">
-                                                بازنشسته
-                                            </span>
-                                            break;
-
-                                        case AssetStatus.Lost:
-                                            <span class="badge bg-danger">
-                                                مفقود شده
-                                            </span>
-                                            break;
-                                    }
-                                </td>
-
-                                <td class="text-center">
-
-                                    <div class="btn-group">
-
-                                        <a asp-page="./Details"
-                                           asp-route-id="@asset.Id"
-                                           class="btn btn-sm btn-outline-info"
-                                           title="جزئیات">
-                                            <i class="bi bi-eye"></i>
-                                            
-                                        </a>
-
-                                        <a asp-page="./Edit"
-                                           asp-route-id="@asset.Id"
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="ویرایش">
-                                            <i class="bi bi-pencil"></i>
-                                            
-                                        </a>
-
-                                        <a asp-page="./Delete"
-                                           asp-route-id="@asset.Id"
-                                           class="btn btn-sm btn-outline-danger"
-                                           title="حذف">
-                                            <i class="bi bi-trash"></i>
-                                            
-                                        </a>
+                                        <div class="mt-2">
+                                            موردی برای نمایش وجود ندارد.
+                                        </div>
 
                                     </div>
 
                                 </td>
-
                             </tr>
-
-                            row++;
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="9"
-                                class="text-center py-5">
-
-                                <div class="text-muted">
-
-                                    <i class="bi bi-inbox fs-1"></i>
-
-                                    <div class="mt-2">
-                                        موردی برای نمایش وجود ندارد.
-                                    </div>
-
-                                </div>
-
-                            </td>
-                        </tr>
-                    }
 
                     </tbody>
 
                 </table>
                 <br />
                 @if (Model.TotalPages > 1)
-{
-    <nav aria-label="Product pagination" >
-        <ul class="pagination  justify-content-center">
+                {
+                    <nav aria-label="Product pagination">
+                        <ul class="pagination  justify-content-center">
 
-            <li class="page-item @(Model.currentPage == 1 ? "disabled" : "")">
-                <a class="page-link"
-                   asp-page="./Index"
-                   asp-route-pagenumber="@(Model.currentPage - 1)"
-                    asp-route-status="@(Model.Status)"
-                    asp-route-search="@(Model.Search)">
-                    قبلی
-                </a>
-            </li>
+                            <li class="page-item @(Model.currentPage == 1 ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-page="./Index"
+                                   asp-route-pagenumber="@(Model.currentPage - 1)"
+                                   asp-route-status="@(Model.Status)"
+                                   asp-route-search="@(Model.Search)">
+                                    &lt;
+                                </a>
+                            </li>
 
-            @* @for (var i = 1; i <= Model.TotalPages; i++)
-            {
-                <li class="page-item @(i == Model.currentPage ? "active" : "")">
-                    <a class="page-link"
-                       asp-page="./Index"
-                       asp-route-pagenumber="@i">
-                        @i
-                    </a>
-                </li>
-            } *@
+                            @{
+                                int current = Model.currentPage;
+                                int total = Model.TotalPages;
 
-            <li class="page-item @(Model.currentPage == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link"
-                   asp-page="./Index"
-                   asp-route-pagenumber="@(Model.currentPage + 1)"
-                    asp-route-status="@(Model.Status)"
-                    asp-route-search="@(Model.Search)">
-                
-                    بعدی
-                </a>
-            </li>
+                                var pages = new List<int>();
 
-        </ul>
-    </nav>
-}
+                                // صفحات ابتدایی
+                                pages.Add(1);
+
+                                if (total >= 2)
+                                    pages.Add(2);
+
+                                // اطراف صفحه فعلی
+                                for (int i = current - 2; i <= current + 2; i++)
+                                {
+                                    if (i > 2 && i < total - 1)
+                                        pages.Add(i);
+                                }
+
+                                // صفحات انتهایی
+                                if (total >= 2)
+                                    pages.Add(total - 1);
+
+                                if (total >= 1)
+                                    pages.Add(total);
+
+                                pages = pages
+                                    .Where(x => x >= 1 && x <= total)
+                                    .Distinct()
+                                    .OrderBy(x => x)
+                                    .ToList();
+                            }
+
+                            @{
+                                int previous = 0;
+                            }
+
+                            @foreach (var pageNumber in pages)
+                            {
+                                if (previous != 0 && pageNumber > previous + 1)
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+
+                                <li class="page-item @(pageNumber == current ? "active" : "")">
+                                    <a class="page-link"
+                                       asp-route-pagenumber="@pageNumber"
+                                       asp-route-status="@(Model.Status)"
+                                       asp-route-search="@(Model.Search)">
+                                        @pageNumber
+                                    </a>
+                                </li>
+
+                                previous = pageNumber;
+                            }
+
+                            <li class="page-item @(Model.currentPage == Model.TotalPages ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-page="./Index"
+                                   asp-route-pagenumber="@(Model.currentPage + 1)"
+                                   asp-route-status="@(Model.Status)"
+                                   asp-route-search="@(Model.Search)">
+
+                                    &gt;
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                }
             </div>
 
         </div>

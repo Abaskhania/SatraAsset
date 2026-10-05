@@ -116,182 +116,228 @@
                             <th>دسته بندی</th>
                             <th>ترتیب</th>
                             <th>گزینه ها</th>
+
                             
-                           
                             <th class="text-center">عملیات</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                    @if (Model.AssetProperties.Any())
-                    {
-                        var row = 1;
-
-                        foreach (var property in Model.AssetProperties)
+                        @if (Model.AssetProperties.Any())
                         {
-                            <tr>
+                            var row = 1;
 
-                                <td>
-                                    @(row+ ((Model.currentPage-1)*Model.pageSize))
-                                </td>
+                            foreach (var property in Model.AssetProperties)
+                            {
+                                <tr>
 
-                                <td>
-                                    <span class="fw-semibold">
-                                        @property.Name
-                                    </span>
-                                </td>
-                                <td>
-                                    @switch (property.DataType)
-                                    {
+                                    <td>
+                                        @(row + ((Model.currentPage - 1) * Model.pageSize))
+                                    </td>
+
+                                    <td>
+                                        <span class="fw-semibold">
+                                            @property.Name
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @switch (property.DataType)
+                                        {
+
                              
-        
-                                        case PropertyDataType.String:
-                                            <span class="badge bg-success">
-                                                رشته ای
-                                            </span>
-                                            break;
+                                            case PropertyDataType.String:
+                                                <span class="badge bg-success">
+                                                    رشته ای
+                                                </span>
+                                                break;
 
-                                        case PropertyDataType.Number:
-                                            <span class="badge bg-secondary">
-                                                عددی
-                                            </span>
-                                            break;
+                                            case PropertyDataType.Number:
+                                                <span class="badge bg-secondary">
+                                                    عددی
+                                                </span>
+                                                break;
 
-                                        case PropertyDataType.Date:
-                                            <span class="badge bg-warning text-dark">
-                                                تاریخ
-                                            </span>
-                                            break;
+                                            case PropertyDataType.Date:
+                                                <span class="badge bg-warning text-dark">
+                                                    تاریخ
+                                                </span>
+                                                break;
 
-                                        case PropertyDataType.Boolean:
-                                            <span class="badge bg-dark">
-                                                منطقی
-                                            </span>
-                                            break;
+                                            case PropertyDataType.Boolean:
+                                                <span class="badge bg-dark">
+                                                    منطقی
+                                                </span>
+                                                break;
 
-                                        case PropertyDataType.Select:
-                                            <span class="badge bg-danger">
-                                                گزینه ای
-                                            </span>
-                                            break;
-                                    }
-                                </td>
-                                <td>
-                                    @property.Category.Name
-                                </td>
+                                            case PropertyDataType.Select:
+                                                <span class="badge bg-danger">
+                                                    گزینه ای
+                                                </span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @property.Category.Name
+                                    </td>
 
-                                <td>
-                                    @property.SortOrder
-                                </td>
+                                    <td>
+                                        @property.SortOrder
+                                    </td>
 
-                                <td>
-                                    @property.OptionsJson
-                                </td>
+                                    <td>
+                                        @property.OptionsJson
+                                    </td>
+
                                                                 
                                 
+                                    <td class="text-center">
 
-                                <td class="text-center">
+                                        <div class="btn-group">
 
-                                    <div class="btn-group">
+                                            <a asp-page="./Details"
+                                               asp-route-id="@property.Id"
+                                               class="btn btn-sm btn-outline-info"
+                                               title="جزئیات">
+                                                <i class="bi bi-eye"></i>
 
-                                        <a asp-page="./Details"
-                                           asp-route-id="@property.Id"
-                                           class="btn btn-sm btn-outline-info"
-                                           title="جزئیات">
-                                            <i class="bi bi-eye"></i>
-                                            
-                                        </a>
+                                            </a>
 
-                                        <a asp-page="./Edit"
-                                           asp-route-id="@property.Id"
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="ویرایش">
-                                            <i class="bi bi-pencil"></i>
-                                            
-                                        </a>
+                                            <a asp-page="./Edit"
+                                               asp-route-id="@property.Id"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="ویرایش">
+                                                <i class="bi bi-pencil"></i>
 
-                                        <a asp-page="./Delete"
-                                           asp-route-id="@property.Id"
-                                           class="btn btn-sm btn-outline-danger"
-                                           title="حذف">
-                                            <i class="bi bi-trash"></i>
-                                            
-                                        </a>
+                                            </a>
+
+                                            <a asp-page="./Delete"
+                                               asp-route-id="@property.Id"
+                                               class="btn btn-sm btn-outline-danger"
+                                               title="حذف">
+                                                <i class="bi bi-trash"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                row++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9"
+                                    class="text-center py-5">
+
+                                    <div class="text-muted">
+
+                                        <i class="bi bi-inbox fs-1"></i>
+
+                                        <div class="mt-2">
+                                            موردی برای نمایش وجود ندارد.
+                                        </div>
 
                                     </div>
 
                                 </td>
-
                             </tr>
-
-                            row++;
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="9"
-                                class="text-center py-5">
-
-                                <div class="text-muted">
-
-                                    <i class="bi bi-inbox fs-1"></i>
-
-                                    <div class="mt-2">
-                                        موردی برای نمایش وجود ندارد.
-                                    </div>
-
-                                </div>
-
-                            </td>
-                        </tr>
-                    }
 
                     </tbody>
 
                 </table>
                 <br />
                 @if (Model.TotalPages > 1)
-{
-    <nav aria-label="Product pagination" >
-        <ul class="pagination  justify-content-center">
+                {
+                    <nav aria-label="Product pagination">
+                        <ul class="pagination  justify-content-center">
 
-            <li class="page-item @(Model.currentPage == 1 ? "disabled" : "")">
-                <a class="page-link"
-                   asp-page="./Index"
-                   asp-route-pagenumber="@(Model.currentPage - 1)"
-                    asp-route-CategoryID="@(Model.CategoryID)"
-                    asp-route-search="@(Model.Search)">
-                    قبلی
-                </a>
-            </li>
+                            <li class="page-item @(Model.currentPage == 1 ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-page="./Index"
+                                   asp-route-pagenumber="@(Model.currentPage - 1)"
+                                   asp-route-CategoryID="@(Model.CategoryID)"
+                                   asp-route-search="@(Model.Search)">
+                                    &lt;
 
-            @* @for (var i = 1; i <= Model.TotalPages; i++)
-            {
-                <li class="page-item @(i == Model.currentPage ? "active" : "")">
-                    <a class="page-link"
-                       asp-page="./Index"
-                       asp-route-pagenumber="@i">
-                        @i
-                    </a>
-                </li>
-            } *@
+                                </a>
+                            </li>
 
-            <li class="page-item @(Model.currentPage == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link"
-                   asp-page="./Index"
-                   asp-route-pagenumber="@(Model.currentPage + 1)"
-                    asp-route-CategoryID="@(Model.CategoryID)"
-                    asp-route-search="@(Model.Search)">
-                
-                    بعدی
-                </a>
-            </li>
+                            @{
+                                int current = Model.currentPage;
+                                int total = Model.TotalPages;
 
-        </ul>
-    </nav>
-}
+                                var pages = new List<int>();
+
+                                // صفحات ابتدایی
+                                pages.Add(1);
+
+                                if (total >= 2)
+                                    pages.Add(2);
+
+                                // اطراف صفحه فعلی
+                                for (int i = current - 2; i <= current + 2; i++)
+                                {
+                                    if (i > 2 && i < total - 1)
+                                        pages.Add(i);
+                                }
+
+                                // صفحات انتهایی
+                                if (total >= 2)
+                                    pages.Add(total - 1);
+
+                                if (total >= 1)
+                                    pages.Add(total);
+
+                                pages = pages
+                                    .Where(x => x >= 1 && x <= total)
+                                    .Distinct()
+                                    .OrderBy(x => x)
+                                    .ToList();
+                            }
+
+                            @{
+                                int previous = 0;
+                            }
+                            @foreach (var pageNumber in pages)
+                            {
+                                if (previous != 0 && pageNumber > previous + 1)
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+
+                                <li class="page-item @(pageNumber == current ? "active" : "")">
+                                    <a class="page-link"
+                                       asp-route-pagenumber="@pageNumber"
+                                       asp-route-CategoryID="@(Model.CategoryID)"
+                                       asp-route-search="@(Model.Search)">
+                                        @pageNumber
+                                    </a>
+                                </li>
+
+                                previous = pageNumber;
+                            }
+
+                            <li class="page-item @(Model.currentPage == Model.TotalPages ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-page="./Index"
+                                   asp-route-pagenumber="@(Model.currentPage + 1)"
+                                   asp-route-CategoryID="@(Model.CategoryID)"
+                                   asp-route-search="@(Model.Search)">
+                                    &gt;
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                }
             </div>
 
         </div>
