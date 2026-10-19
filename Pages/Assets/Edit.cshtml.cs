@@ -24,8 +24,8 @@ namespace SatraAsset.Pages.Assets
         public SelectList AssetLocations { get; set; }
 
         [BindProperty]
-        public Dictionary<int, string?>? PropertyValues { get; set; }
-        
+        public Dictionary<int, string?> PropertyValues { get; set; } = new();
+
         public void OnGet()
         {
             PersianCalendar pc = new PersianCalendar();

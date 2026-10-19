@@ -20,9 +20,9 @@ namespace SatraAsset.Pages.Assets
 
         [BindProperty]
         public Asset Asset { get; set; } = new();
+
         [BindProperty]
-        public Dictionary<int, string?> PropertyValues { get; set; }
-        = new();
+        public Dictionary<int, string?> PropertyValues { get; set; } = new();
 
         public SelectList AssetCategories { get; set; }
         public SelectList AssetLocations { get; set; }
@@ -37,7 +37,7 @@ namespace SatraAsset.Pages.Assets
 
         public async Task<IActionResult> OnGetPropertiesAsync(int categoryid)
         {
-            IList<AssetProperty> props= _context.AssetProperties.Where(t => t.CategoryId == categoryid).ToList();
+            IList<AssetProperty> props= _context.AssetProperties.Where(t => t.CategoryId == categoryid).OrderBy(t=>t.SortOrder).ToList();
             return Partial("_PartialAssetProperty", props);
         }
         public async Task<IActionResult> OnPostAsync()

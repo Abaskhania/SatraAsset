@@ -34,7 +34,8 @@ namespace SatraAsset.Pages.Assets
         {
             var query = _context.Assets
                 .Include(s=>s.Category)
-                .Include(s=>s.Location)
+                .Include(s=>s.Location)  
+                .Where(s=>s.IsValid==true)
                 .AsNoTracking()
                 .AsQueryable();
 

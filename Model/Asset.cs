@@ -52,13 +52,16 @@ namespace SatraAsset.Model
         [MaxLength(100)]
         [Display(Name = "شماره سریال")]
         public string? SerialNumber { get; set; }
-        [Required]
+        [RegularExpression(@"^(۱۴[۰-۹]{2}/(۰[۱-۶]/(۰[۱-۹]|[۱۲][۰-۹]|۳[۰۱])|(۰[۷-۹]|۱۱)/(۰[۱-۹]|[۱۲][۰-۹]|۳۰)|(۱۰|۱۲)/(۰[۱-۹]|[۱۲][۰-۹]|۳۰))|)$",
+         ErrorMessage = "فرمت تاریخ صحیح نیست")]
+        [Required(ErrorMessage = "تاریخ خرید را وارد نمایید.")]
         [Display(Name = "تاریخ خرید")]
         public string? PurchaseAt { get; set; }
 
         [Display(Name = "قیمت خرید")]
-        public decimal PurchasePrice { get; set; }
-
+        public Int64 PurchasePrice { get; set; }
+        [RegularExpression(@"^(۱۴[۰-۹]{2}/(۰[۱-۶]/(۰[۱-۹]|[۱۲][۰-۹]|۳[۰۱])|(۰[۷-۹]|۱۱)/(۰[۱-۹]|[۱۲][۰-۹]|۳۰)|(۱۰|۱۲)/(۰[۱-۹]|[۱۲][۰-۹]|۳۰))|)$",
+         ErrorMessage = "فرمت تاریخ صحیح نیست")]
         [Display(Name = "تاریخ پایان گارانتی")]
         public string? WarrantyExpiryAt { get; set; }
 
@@ -70,6 +73,7 @@ namespace SatraAsset.Model
 
         [Display(Name = "تاریخ آخرین ویرایش")]
         public string? UpdatedAt { get; set; }
+        public bool IsValid { get; set; }=true;
 
         public ICollection<AssetRecipient> AssetPersonels { get; } = new List<AssetRecipient>();
         public ICollection<AssetPropertyValue> AssetProperties { get; set; } = new List<AssetPropertyValue>();

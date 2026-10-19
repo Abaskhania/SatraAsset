@@ -1,0 +1,54 @@
+@page
+@model SatraAsset.Pages_Properties.DeleteModel
+
+
+
+<h3>آیا از حذف این خصوصیت اطمینان دارید؟</h3>
+<div>
+    <h4>خصوصیت اموال</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetProperty.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssetProperty.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetProperty.DataType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssetProperty.DataType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetProperty.IsRequired)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssetProperty.IsRequired)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetProperty.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssetProperty.Category.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetProperty.SortOrder)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssetProperty.SortOrder)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetProperty.OptionsJson)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssetProperty.OptionsJson)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="AssetProperty.Id" />
+        <input type="submit" value="حذف" class="btn btn-danger" /> |
+        <a asp-page="./Index">بازگشت به لیست</a>
+    </form>
+</div>

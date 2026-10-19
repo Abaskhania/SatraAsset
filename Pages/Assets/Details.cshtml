@@ -169,8 +169,8 @@
 
                 <div class="d-flex gap-2">
                     شماره کارمندی یا کد ملی:
-                    <input asp-for="Pers_NCD"
-                               type="text" autocomplete="off" 
+                    <input asp-for="Pers_NCD" maxlength="10"
+                               type="number" autocomplete="off" 
                                class=" form-control" />
                     <button type="submit"
                             class="btn btn-primary">
@@ -181,6 +181,8 @@
                        class="btn btn-secondary">
                         انصراف
                     </a>
+                    <span class="text-danger">@Model.Result</span>
+
                 </div>
 
             </form>

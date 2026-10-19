@@ -43,6 +43,8 @@
 
                 <input type="text"
                        name="PropertyValues[@property.Id]"  autocomplete="off"
+                       oninput="this.value = this.value.replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d])"
+                       maxlength="10"
                        class="form-control input_datepicker "
                        @(property.IsRequired ? "required" : "") />
 

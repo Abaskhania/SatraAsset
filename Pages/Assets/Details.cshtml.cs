@@ -22,6 +22,7 @@ namespace SatraAsset.Pages.Assets
         public string Pers_NCD { get; set; } = "";
         public SelectList? AssetCategories { get; set; }
         public SelectList? AssetLocations { get; set; }
+        public string Result { get; set; } = string.Empty;
         public IActionResult OnGet(int id)
         {
             
@@ -36,7 +37,7 @@ namespace SatraAsset.Pages.Assets
         }
         public void OnPost()
         {
-            Personel? pers = _context.Personels.FirstOrDefault(t => t.NCD == Pers_NCD || t.ClerkID.ToString() == Pers_NCD);
+            Personel? pers = _context.Personels.FirstOrDefault(t => t.NCD.Contains(Pers_NCD) || t.ClerkID.ToString() == Pers_NCD);
             this.Asset = _context.Assets.Include(t => t.AssetProperties).ThenInclude(t=>t.AssetProperty).Include(t => t.AssetPersonels).ThenInclude(t => t.Personel).FirstOrDefault(t => t.Id == this.Asset.Id)!;
 
             
@@ -55,6 +56,10 @@ namespace SatraAsset.Pages.Assets
                 _context.SaveChanges();
                 AssetCategories = new SelectList(_context.Categories, nameof(Category.Id), nameof(Category.Name));
                 AssetLocations = new SelectList(_context.ServiceLocations.OrderBy(s => s.ParentID).ThenBy(s => s.Id), nameof(ServiceLocation.Id), nameof(ServiceLocation.Name));
+            }
+            else
+            {
+                this.Result = "فردی با این مشخصات یافت نشد.";
             }
         }
 

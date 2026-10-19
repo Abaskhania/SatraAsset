@@ -1,0 +1,58 @@
+@page
+@model SatraAsset.Pages.Properties.EditModel
+
+@using SatraAsset.Model
+
+
+<h4>ویرایش خصوصیت اموال</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AssetProperty.Id" />
+            <div class="form-group mb-2">
+                <label asp-for="AssetProperty.Name" class="control-label p-2"></label>
+                <input asp-for="AssetProperty.Name" class="form-control" />
+                <span asp-validation-for="AssetProperty.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="AssetProperty.DataType" class="control-label p-2"></label>
+                <select asp-for="AssetProperty.DataType" asp-items="Html.GetEnumSelectList<PropertyDataType>()" class="form-control"></select>
+                <span asp-validation-for="AssetProperty.DataType" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2 form-check">
+                <label class="form-check-label p-2">
+                    <input class="form-check-input" asp-for="AssetProperty.IsRequired" /> @Html.DisplayNameFor(model => model.AssetProperty.IsRequired)
+                </label>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="AssetProperty.CategoryId" class="control-label p-2"></label>
+                <select asp-for="AssetProperty.CategoryId" class="form-control" asp-items="ViewBag.CategoryId" ></select>
+                <span asp-validation-for="AssetProperty.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="AssetProperty.SortOrder" class="control-label p-2"></label>
+                <input asp-for="AssetProperty.SortOrder" class="form-control" />
+                <span asp-validation-for="AssetProperty.SortOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="AssetProperty.OptionsJson" class="control-label p-2"></label>
+                <input asp-for="AssetProperty.OptionsJson" class="form-control" />
+                <span asp-validation-for="AssetProperty.OptionsJson" class="text-danger"></span>
+            </div>
+            <div class="form-group  mb-2">
+                <input type="submit" value="ذخیره" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div >
+    <a asp-page="./Index">بازگشت به لیست</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
